@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bài 8: Thấu Kính - Trò Chơi Lật Hình</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Titan+One&family=Nunito:wght@800;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Bungee&family=Sigmar+One&family=Nunito:wght@800;900&display=swap');
 
     * {
       box-sizing: border-box;
@@ -48,8 +48,8 @@
     }
 
     .title-main {
-      font-family: 'Titan One', cursive, sans-serif;
-      font-size: 52px;
+      font-family: 'Bungee', cursive, sans-serif;
+      font-size: 46px;
       color: #000000;
       letter-spacing: 2px;
       margin-bottom: 25px;
@@ -57,11 +57,11 @@
     }
 
     .title-sub {
-      font-family: 'Titan One', cursive, sans-serif;
-      font-size: 42px;
+      font-family: 'Sigmar One', cursive, sans-serif;
+      font-size: 38px;
       color: #000000;
       letter-spacing: 1.5px;
-      line-height: 1.2;
+      line-height: 1.3;
       margin-bottom: 45px;
       text-transform: uppercase;
     }
@@ -101,7 +101,6 @@
       margin-bottom: 20px;
     }
 
-    /* HIỆU ỨNG THẺ BÀI LẬT 3D */
     .card-grid {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
@@ -179,7 +178,6 @@
       background-color: #d1d5db;
     }
 
-    /* KHUNG HIỂN THỊ CÂU HỎI KHI BẤM VÀO THẺ */
     .modal-question {
       display: none;
       position: absolute;
@@ -318,7 +316,6 @@
       <button class="back-btn" onclick="goToSlide(1)">❮ Quay lại</button>
     </div>
 
-    <!-- KHUNG CÂU HỎI -->
     <div class="modal-question" id="modalQ">
       <h3 class="q-title" id="qText">Câu hỏi...</h3>
       <div class="options-grid">
