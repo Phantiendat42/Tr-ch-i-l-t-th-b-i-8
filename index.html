@@ -23,9 +23,11 @@
     }
 
     .slide-container {
-      width: 900px;
-      height: 550px;
-      background-color: #ffffff;
+      width: 950px;
+      height: 600px;
+      background-color: #e5c396;
+      background-image: repeating-linear-gradient(0deg, transparent, transparent 49px, rgba(0,0,0,0.05) 50px),
+                        repeating-linear-gradient(90deg, #dfb988, #dfb988 100px, #d6ae7b 100px, #d6ae7b 200px);
       border-radius: 16px;
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
       position: relative;
@@ -98,20 +100,21 @@
       font-size: 28px;
       font-weight: 900;
       color: #333;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
+      text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
     }
 
     .card-grid {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      gap: 15px;
+      gap: 18px;
       width: 100%;
-      max-width: 700px;
+      max-width: 850px;
       perspective: 1000px;
     }
 
     .card-item {
-      height: 100px;
+      height: 170px;
       cursor: pointer;
     }
 
@@ -135,22 +138,50 @@
       height: 100%;
       -webkit-backface-visibility: hidden;
       backface-visibility: hidden;
-      border-radius: 12px;
+      border-radius: 14px;
       display: flex;
       justify-content: center;
       align-items: center;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
     }
 
     .card-front {
-      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-      color: white;
-      font-size: 32px;
+      font-size: 38px;
       font-weight: 900;
+      border: 3px solid rgba(255, 255, 255, 0.4);
+      outline: 2px solid transparent;
+      outline-offset: -8px;
     }
 
-    .card-front:hover {
-      background: linear-gradient(135deg, #60a5fa, #2563eb);
+    .card-front::after {
+      content: '';
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      right: 6px;
+      bottom: 6px;
+      border: 2px solid rgba(255, 255, 255, 0.35);
+      border-radius: 8px;
+      pointer-events: none;
+    }
+
+    /* Màu sắc thẻ */
+    .card-red { background-color: #c93b2b; color: #ffffff; }
+    .card-blue { background-color: #2b7bb9; color: #ffffff; }
+    .card-green { background-color: #278547; color: #ffffff; }
+    .card-yellow { background-color: #f3c623; color: #333333; }
+    .card-yellow::after { border-color: rgba(0, 0, 0, 0.2) !important; }
+    .card-orange { background-color: #e67e22; color: #ffffff; }
+    .card-purple { background-color: #7b3294; color: #ffffff; }
+    .card-pink { background-color: #f06292; color: #ffffff; }
+    .card-white { background-color: #f5f5f5; color: #333333; border-color: #d1d5db; }
+    .card-white::after { border-color: rgba(0, 0, 0, 0.15) !important; }
+    .card-dark { background-color: #343a40; color: #ffffff; }
+    .card-brown { background-color: #6f4e37; color: #ffffff; }
+
+    .card-item:hover .card-front {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 18px rgba(0, 0, 0, 0.35);
     }
 
     .card-back {
@@ -168,14 +199,15 @@
       font-size: 16px;
       font-weight: bold;
       border: none;
-      background-color: #e5e7eb;
+      background-color: #ffffff;
       color: #374151;
       border-radius: 8px;
       cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
 
     .back-btn:hover {
-      background-color: #d1d5db;
+      background-color: #f3f4f6;
     }
 
     .modal-question {
@@ -185,7 +217,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.85);
+      background-color: rgba(0, 0, 0, 0.9);
       color: white;
       flex-direction: column;
       justify-content: center;
@@ -199,27 +231,30 @@
     }
 
     .q-title {
-      font-size: 24px;
+      font-size: 20px;
       margin-bottom: 20px;
       color: #facc15;
+      max-width: 85%;
+      line-height: 1.4;
     }
 
     .options-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
-      width: 80%;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      width: 85%;
       margin-bottom: 20px;
     }
 
     .opt-btn {
-      padding: 12px;
+      padding: 10px 15px;
       background-color: #374151;
       color: white;
       border: 2px solid #4b5563;
       border-radius: 8px;
-      font-size: 16px;
+      font-size: 15px;
       cursor: pointer;
+      text-align: left;
       transition: background 0.2s;
     }
 
@@ -254,61 +289,61 @@
       <div class="card-grid">
         <div class="card-item" onclick="openQuestion(1, this)">
           <div class="card-inner">
-            <div class="card-front">1</div>
+            <div class="card-front card-red">1</div>
             <div class="card-back">ĐÃ LẬT</div>
           </div>
         </div>
         <div class="card-item" onclick="openQuestion(2, this)">
           <div class="card-inner">
-            <div class="card-front">2</div>
+            <div class="card-front card-blue">2</div>
             <div class="card-back">ĐÃ LẬT</div>
           </div>
         </div>
         <div class="card-item" onclick="openQuestion(3, this)">
           <div class="card-inner">
-            <div class="card-front">3</div>
+            <div class="card-front card-green">3</div>
             <div class="card-back">ĐÃ LẬT</div>
           </div>
         </div>
         <div class="card-item" onclick="openQuestion(4, this)">
           <div class="card-inner">
-            <div class="card-front">4</div>
+            <div class="card-front card-yellow">4</div>
             <div class="card-back">ĐÃ LẬT</div>
           </div>
         </div>
         <div class="card-item" onclick="openQuestion(5, this)">
           <div class="card-inner">
-            <div class="card-front">5</div>
+            <div class="card-front card-orange">5</div>
             <div class="card-back">ĐÃ LẬT</div>
           </div>
         </div>
         <div class="card-item" onclick="openQuestion(6, this)">
           <div class="card-inner">
-            <div class="card-front">6</div>
+            <div class="card-front card-purple">6</div>
             <div class="card-back">ĐÃ LẬT</div>
           </div>
         </div>
         <div class="card-item" onclick="openQuestion(7, this)">
           <div class="card-inner">
-            <div class="card-front">7</div>
+            <div class="card-front card-pink">7</div>
             <div class="card-back">ĐÃ LẬT</div>
           </div>
         </div>
         <div class="card-item" onclick="openQuestion(8, this)">
           <div class="card-inner">
-            <div class="card-front">8</div>
+            <div class="card-front card-white">8</div>
             <div class="card-back">ĐÃ LẬT</div>
           </div>
         </div>
         <div class="card-item" onclick="openQuestion(9, this)">
           <div class="card-inner">
-            <div class="card-front">9</div>
+            <div class="card-front card-dark">9</div>
             <div class="card-back">ĐÃ LẬT</div>
           </div>
         </div>
         <div class="card-item" onclick="openQuestion(10, this)">
           <div class="card-inner">
-            <div class="card-front">10</div>
+            <div class="card-front card-brown">10</div>
             <div class="card-back">ĐÃ LẬT</div>
           </div>
         </div>
@@ -318,31 +353,104 @@
 
     <div class="modal-question" id="modalQ">
       <h3 class="q-title" id="qText">Câu hỏi...</h3>
-      <div class="options-grid">
-        <button class="opt-btn" onclick="checkAns(this)">A. Đáp án A</button>
-        <button class="opt-btn" onclick="checkAns(this)">B. Đáp án B</button>
-        <button class="opt-btn" onclick="checkAns(this)">C. Đáp án C</button>
-        <button class="opt-btn" onclick="checkAns(this)">D. Đáp án D</button>
-      </div>
+      <div class="options-grid" id="optionsBox"></div>
       <button class="close-q-btn" onclick="closeQuestion()">Đóng & Quay lại lưới thẻ</button>
     </div>
   </div>
 
   <script>
-    const questions = {
-      1: "Câu 1: Thấu kính hội tụ có đặc điểm gì về rìa so với phần giữa?",
-      2: "Câu 2: Thấu kính phân kỳ là thấu kính có phần rìa như thế nào?",
-      3: "Câu 3: Chùm tia tới song song với trục chính của thấu kính hội tụ cho chùm tia ló thế nào?",
-      4: "Câu 4: Quang tâm O của thấu kính có đặc điểm gì khi tia sáng truyền qua?",
-      5: "Câu 5: Tiêu điểm F của thấu kính nằm trên đường nào?",
-      6: "Câu 6: Kính hiển vi hay kính phóng đại thường dùng loại thấu kính nào?",
-      7: "Câu 7: Kính cận thị dành cho người cận thị sử dụng thấu kính gì?",
-      8: "Câu 8: Tiêu cự f của thấu kính là khoảng cách từ đâu đến đâu?",
-      9: "Câu 9: Tác dụng của thấu kính hội tụ là gì?",
-      10: "Câu 10: Ảnh ảo tạo bởi thấu kính hội tụ có đặc điểm gì?"
+    const questionsData = {
+      1: {
+        title: "Câu 1: Thấu kính là một khối như thế nào?",
+        options: [
+          "A. Đục, đồng chất",
+          "B. Trong suốt, không đồng chất",
+          "C. Trong suốt và đồng chất, giới hạn bởi 2 mặt cong hoặc bởi 1 mặt cong và 1 mặt phẳng",
+          "D. Mờ đục và đồng chất, không giới hạn bởi 2 mặt cong hoặc bởi 1 mặt cong và 1 phẳng"
+        ]
+      },
+      2: {
+        title: "Câu 2: Thấu kính có bao nhiêu loại?",
+        options: [
+          "A. 1",
+          "B. 2",
+          "C. 3",
+          "D. 4"
+        ]
+      },
+      3: {
+        title: "Câu 3: Đâu là phát biểu sai?",
+        options: [
+          "A. Thấu kính là một khối chất trong suốt, giới hạn bởi hai mặt cong hoặc bởi một mặt cong và một mặt phẳng",
+          "B. Thấu kính phân kỳ có phần rìa dày hơn phần ở giữa",
+          "C. Thấu kính hội tụ có phần rìa mỏng hơn phần ở giữa",
+          "D. Thấu kính hội tụ có phần rìa dày hơn phần ở giữa"
+        ]
+      },
+      4: {
+        title: "Câu 4: Đường thẳng đi qua quang tâm O và vuông góc với tiết diện thẳng của thấu kính gọi là gì?",
+        options: [
+          "A. Tiêu cự",
+          "B. Quang tâm",
+          "C. Tiêu điểm chính",
+          "D. Trục chính"
+        ]
+      },
+      5: {
+        title: "Câu 5: Có 1 điểm O của thấu kính mà mọi tia sáng tới O đều truyền thẳng qua thấu kính. Điểm O gọi là gì?",
+        options: [
+          "A. Quang tâm",
+          "B. Tiêu điểm chính",
+          "C. Trục chính",
+          "D. Tiêu cự"
+        ]
+      },
+      6: {
+        title: "Câu 6: Hình 8.4 mô tả hệ thống thấu kính trong ống kính của một máy ảnh. Thấu kính hội tụ trong hệ thống này là:",
+        options: [
+          "A. Hình 1 và 3",
+          "B. Hình 3 và 2",
+          "C. Hình 4 và 2",
+          "D. Hình 1 và 4"
+        ]
+      },
+      7: {
+        title: "Câu 7: Đâu là phát biểu sai?",
+        options: [
+          "A. Tia sáng qua quang tâm của thấu kính thì truyền thẳng",
+          "B. Tia tới song song với trục chính của thấu kính hội tụ cho tia ló truyền qua tiêu điểm chính của thấu kính",
+          "C. Tia tới song song với trục chính của thấu kính phân kì cho tia ló có đường kéo dài qua tiêu điểm chính của thấu kính",
+          "D. Tia tới song song với trục chính của thấu kính thì truyền thẳng"
+        ]
+      },
+      8: {
+        title: "Câu 8: Chiếu một chùm tia sáng song song tới thấu kính hội tụ, chùm tia ló thu được là chùm:",
+        options: [
+          "A. hội tụ",
+          "B. song song",
+          "C. phân kì",
+          "D. sáng hội tụ tại quang tâm của thấu kính"
+        ]
+      },
+      9: {
+        title: "Câu 9: Khoảng cách từ quang tâm O đến tiêu điểm chính F của thấu kính được gọi là gì?",
+        options: [
+          "A. Trục chính",
+          "B. Tiêu cự",
+          "C. Độ tụ",
+          "D. Tiêu diện"
+        ]
+      },
+      10: {
+        title: "Câu 10: Chiếu một chùm tia sáng song song với trục chính tới thấu kính phân kỳ thì chùm tia ló có đặc điểm gì?",
+        options: [
+          "A. Hội tụ tại tiêu điểm chính",
+          "B. Song song với trục chính",
+          "C. Phân kỳ và có đường kéo dài đi qua tiêu điểm chính",
+          "D. Truyền thẳng không bị lệch hướng"
+        ]
+      }
     };
-
-    let currentCard = null;
 
     function goToSlide(slideNumber) {
       document.querySelectorAll('.slide').forEach(slide => slide.classList.remove('active'));
@@ -350,18 +458,26 @@
     }
 
     function openQuestion(cardNum, cardEl) {
-      currentCard = cardEl;
       cardEl.classList.add('flipped');
-      document.getElementById('qText').innerText = questions[cardNum] || "Câu hỏi về Thấu kính số " + cardNum;
+      const qData = questionsData[cardNum];
+
+      document.getElementById('qText').innerText = qData.title;
+      const optionsBox = document.getElementById('optionsBox');
+      optionsBox.innerHTML = '';
+      
+      qData.options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'opt-btn';
+        btn.innerText = opt;
+        btn.onclick = () => alert("Bạn đã chọn: " + opt);
+        optionsBox.appendChild(btn);
+      });
+
       document.getElementById('modalQ').classList.add('active');
     }
 
     function closeQuestion() {
       document.getElementById('modalQ').classList.remove('active');
-    }
-
-    function checkAns(btn) {
-      alert("Bạn đã chọn: " + btn.innerText);
     }
   </script>
 
