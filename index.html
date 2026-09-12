@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bài 8: Thấu Kính - Trò Chơi Lật Hình</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Bungee&family=Sigmar+One&family=Nunito:wght@700;800;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=Nunito:wght@700;800;900&display=swap');
 
     * {
       box-sizing: border-box;
@@ -20,15 +20,15 @@
       align-items: center;
       min-height: 100vh;
       font-family: 'Nunito', sans-serif;
+      user-select: none;
     }
 
+    /* Container Khung Game */
     .slide-container {
       width: 950px;
       height: 600px;
-      background-color: #e5c396;
-      background-image: repeating-linear-gradient(0deg, transparent, transparent 49px, rgba(0,0,0,0.05) 50px),
-                        repeating-linear-gradient(90deg, #dfb988, #dfb988 100px, #d6ae7b 100px, #d6ae7b 200px);
-      border-radius: 16px;
+      background-color: #ffffff;
+      border-radius: 20px;
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
       position: relative;
       overflow: hidden;
@@ -43,57 +43,104 @@
       align-items: center;
       padding: 30px;
       text-align: center;
+      position: relative;
     }
 
     .slide.active {
       display: flex;
     }
 
-    .title-main {
-      font-family: 'Bungee', cursive, sans-serif;
-      font-size: 46px;
+    /* ================= SẢNH CHÍNH (SLIDE 1) ================= */
+    #slide1 {
+      background-color: #ffffff;
+    }
+
+    .title-main-lobby {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 900;
+      font-size: 54px;
       color: #000000;
-      letter-spacing: 2px;
-      margin-bottom: 25px;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
       text-transform: uppercase;
     }
 
-    .title-sub {
-      font-family: 'Sigmar One', cursive, sans-serif;
-      font-size: 38px;
+    .title-sub-lobby {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 900;
+      font-size: 48px;
       color: #000000;
-      letter-spacing: 1.5px;
-      line-height: 1.3;
+      line-height: 1.2;
       margin-bottom: 45px;
       text-transform: uppercase;
     }
 
+    /* Nút Play ở sảnh */
     .play-btn {
-      width: 170px;
-      height: 100px;
-      background-color: #6bbd00;
-      border-radius: 30px;
+      width: 160px;
+      height: 90px;
+      background-color: #70c700;
+      border-radius: 28px;
+      border: none;
       display: flex;
       justify-content: center;
       align-items: center;
       cursor: pointer;
-      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.3s, box-shadow 0.3s;
-      box-shadow: 0 0 15px rgba(107, 189, 0, 0.4);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s, box-shadow 0.2s;
+      box-shadow: 0 8px 18px rgba(112, 199, 0, 0.4);
+      outline: none;
+      z-index: 5;
     }
 
     .play-icon {
       width: 0;
       height: 0;
-      border-top: 22px solid transparent;
-      border-bottom: 22px solid transparent;
-      border-left: 38px solid #ffffff;
-      margin-left: 8px;
+      border-top: 20px solid transparent;
+      border-bottom: 20px solid transparent;
+      border-left: 34px solid #ffffff;
+      margin-left: 6px;
     }
 
     .play-btn:hover {
       transform: scale(1.15);
-      background-color: #79d600;
-      box-shadow: 0 0 25px #6bbd00, 0 0 50px #9aff00;
+      background-color: #7de000;
+      box-shadow: 0 10px 25px rgba(112, 199, 0, 0.6);
+    }
+
+    /* Trang trí Sảnh: Kính lúp góc dưới trái */
+    .deco-magnifier {
+      position: absolute;
+      left: 45px;
+      bottom: 40px;
+      width: 140px;
+      height: 140px;
+      pointer-events: none;
+    }
+
+    /* Trang trí Sảnh: 2 Thẻ bài góc dưới phải */
+    .deco-cards {
+      position: absolute;
+      right: 50px;
+      bottom: 35px;
+      width: 170px;
+      height: 160px;
+      pointer-events: none;
+    }
+
+    /* Trang trí thêm: Tia lấp lánh nhẹ góc trên */
+    .deco-sparkle {
+      position: absolute;
+      top: 35px;
+      right: 60px;
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    /* ================= LƯỚI THẺ (SLIDE 2) ================= */
+    #slide2 {
+      background-color: #e5c396;
+      background-image: repeating-linear-gradient(0deg, transparent, transparent 49px, rgba(0,0,0,0.05) 50px),
+                        repeating-linear-gradient(90deg, #dfb988, #dfb988 100px, #d6ae7b 100px, #d6ae7b 200px);
     }
 
     .grid-title {
@@ -113,7 +160,6 @@
       perspective: 1000px;
     }
 
-    /* ĐỊNH DẠNG THẺ & HIỆU ỨNG RÊ CHUỘT PHÓNG TO */
     .card-item {
       height: 170px;
       cursor: pointer;
@@ -121,7 +167,7 @@
       position: relative;
     }
 
-    /* Khi rê chuột vào (cho cả thẻ đã lật và chưa lật): CHỈ PHÓNG TO */
+    /* Di chuột vào thẻ chưa lật hoặc đã lật -> CHỈ Phóng to */
     .card-item:hover {
       transform: scale(1.1);
       z-index: 10;
@@ -137,7 +183,7 @@
       border-radius: 14px;
     }
 
-    /* Chỉ xoay 180 độ khi ĐÃ LẬT (có class flipped) */
+    /* Chỉ xoay khi đã lật */
     .card-item.flipped .card-inner {
       transform: rotateY(180deg);
     }
@@ -157,7 +203,6 @@
       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
     }
 
-    /* Mặt trước (Số thẻ) */
     .card-front {
       font-size: 38px;
       font-weight: 900;
@@ -167,16 +212,12 @@
     .card-front::after {
       content: '';
       position: absolute;
-      top: 6px;
-      left: 6px;
-      right: 6px;
-      bottom: 6px;
+      top: 6px; left: 6px; right: 6px; bottom: 6px;
       border: 2px solid rgba(255, 255, 255, 0.35);
       border-radius: 8px;
       pointer-events: none;
     }
 
-    /* Màu sắc các thẻ */
     .card-red { background-color: #c93b2b; color: #ffffff; }
     .card-blue { background-color: #2b7bb9; color: #ffffff; }
     .card-green { background-color: #278547; color: #ffffff; }
@@ -190,7 +231,6 @@
     .card-dark { background-color: #343a40; color: #ffffff; }
     .card-brown { background-color: #6f4e37; color: #ffffff; }
 
-    /* Mặt sau ("ĐÃ LẬT") */
     .card-back {
       background-color: #10b981;
       color: white;
@@ -223,10 +263,8 @@
     .modal-question {
       display: none;
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       background-color: rgba(0, 0, 0, 0.88);
       color: white;
       flex-direction: column;
@@ -236,9 +274,7 @@
       z-index: 100;
     }
 
-    .modal-question.active {
-      display: flex;
-    }
+    .modal-question.active { display: flex; }
 
     .q-title {
       font-size: 20px;
@@ -283,14 +319,12 @@
       cursor: pointer;
     }
 
-    /* BANNER THÔNG BÁO (Đúng / Sai / Bạn đã trả lời rồi!) */
+    /* Banner Thông Báo (Đúng / Sai / Bạn đã trả lời rồi) */
     .modal-status {
       display: none;
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       background-color: rgba(0, 0, 0, 0.6);
       backdrop-filter: blur(3px);
       z-index: 200;
@@ -299,9 +333,7 @@
       cursor: pointer;
     }
 
-    .modal-status.active {
-      display: flex;
-    }
+    .modal-status.active { display: flex; }
 
     .status-banner {
       width: 650px;
@@ -319,25 +351,17 @@
       animation: bannerPop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       border: 4px solid rgba(255, 255, 255, 0.3);
       text-shadow: 2px 3px 5px rgba(0,0,0,0.3);
-      user-select: none;
     }
 
-    .status-banner.success {
-      background: linear-gradient(135deg, #70c700 0%, #569e00 100%);
-    }
-
-    .status-banner.error {
-      background: linear-gradient(135deg, #ff4d4d 0%, #d92626 100%);
-    }
-
+    .status-banner.success { background: linear-gradient(135deg, #70c700 0%, #569e00 100%); }
+    .status-banner.error { background: linear-gradient(135deg, #ff4d4d 0%, #d92626 100%); }
     .status-banner.info {
       background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
       font-size: 38px;
     }
 
     .status-banner svg {
-      width: 58px;
-      height: 58px;
+      width: 58px; height: 58px;
       fill: #ffffff;
       filter: drop-shadow(2px 3px 4px rgba(0,0,0,0.3));
     }
@@ -351,12 +375,35 @@
 <body>
 
   <div class="slide-container">
+    
     <div class="slide active" id="slide1">
-      <h1 class="title-main">BÀI 8 : THẤU KÍNH</h1>
-      <h2 class="title-sub">TRÒ CHƠI LẬT HÌNH</h2>
-      <div class="play-btn" onclick="goToSlide(2)">
+      <h1 class="title-main-lobby">BÀI 8 : THẤU KÍNH</h1>
+      <h2 class="title-sub-lobby">TRÒ CHƠI LẬT<br>HÌNH</h2>
+      
+      <button class="play-btn" id="btnStartGame" aria-label="Chơi ngay">
         <div class="play-icon"></div>
-      </div>
+      </button>
+
+      <svg class="deco-magnifier" viewBox="0 0 100 100">
+        <circle cx="42" cy="42" r="30" fill="none" stroke="#000000" stroke-width="8"/>
+        <line x1="64" y1="64" x2="90" y2="90" stroke="#000000" stroke-width="12" stroke-linecap="round"/>
+      </svg>
+
+      <svg class="deco-cards" viewBox="0 0 120 120">
+        <g transform="rotate(-25 50 60)">
+          <rect x="20" y="20" width="55" height="75" rx="8" fill="#ffca28" stroke="#000000" stroke-width="4"/>
+          <rect x="25" y="25" width="45" height="65" rx="5" fill="none" stroke="#e65100" stroke-width="2"/>
+        </g>
+        <g transform="rotate(12 65 55)">
+          <rect x="40" y="15" width="55" height="75" rx="8" fill="#ff4081" stroke="#000000" stroke-width="4"/>
+          <rect x="45" y="20" width="45" height="65" rx="5" fill="none" stroke="#ffffff" stroke-width="2"/>
+        </g>
+        <path d="M78 5 L78 12 M90 8 L85 14 M66 8 L71 14" stroke="#000000" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+
+      <svg class="deco-sparkle" width="40" height="40" viewBox="0 0 40 40">
+        <path d="M20 0 L23 17 L40 20 L23 23 L20 40 L17 23 L0 20 L17 17 Z" fill="#facc15"/>
+      </svg>
     </div>
 
     <div class="slide" id="slide2">
@@ -438,6 +485,7 @@
         <span id="statusText">Trả lời đúng</span>
       </div>
     </div>
+
   </div>
 
   <script>
@@ -546,19 +594,32 @@
 
     let currentCardElement = null;
 
+    // Chuyển slide an toàn
     function goToSlide(slideNumber) {
       document.querySelectorAll('.slide').forEach(slide => slide.classList.remove('active'));
-      document.getElementById('slide' + slideNumber).classList.add('active');
+      const targetSlide = document.getElementById('slide' + slideNumber);
+      if (targetSlide) {
+        targetSlide.classList.add('active');
+      }
     }
 
+    // Gán sự kiện cho nút Chơi ngay sau khi trang load xong
+    document.addEventListener('DOMContentLoaded', () => {
+      const btnPlay = document.getElementById('btnStartGame');
+      if (btnPlay) {
+        btnPlay.addEventListener('click', () => {
+          goToSlide(2);
+        });
+      }
+    });
+
+    // Click chọn thẻ
     function handleCardClick(cardNum, cardEl) {
-      // Nếu đã lật rồi -> Thông báo "Bạn đã trả lời rồi!"
       if (cardEl.classList.contains('flipped')) {
         showAlreadyAnsweredModal();
         return;
       }
       
-      // Mở câu hỏi
       currentCardElement = cardEl;
       const qData = questionsData[cardNum];
       document.getElementById('qText').innerText = qData.title;
@@ -592,4 +653,33 @@
       if (isCorrect) {
         banner.className = 'status-banner success';
         text.innerText = 'Trả lời đúng';
-        icon.innerHTML = `<svg viewBox="0 0 24 24">
+        icon.innerHTML = `<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>`;
+      } else {
+        banner.className = 'status-banner error';
+        text.innerText = 'Trả lời sai';
+        icon.innerHTML = `<svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 13.41 12z"/></svg>`;
+      }
+
+      document.getElementById('modalStatus').classList.add('active');
+    }
+
+    function showAlreadyAnsweredModal() {
+      const banner = document.getElementById('statusBanner');
+      const text = document.getElementById('statusText');
+      const icon = document.getElementById('statusIcon');
+
+      banner.className = 'status-banner info';
+      text.innerText = 'Bạn đã trả lời rồi!';
+      icon.innerHTML = `<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>`;
+
+      document.getElementById('modalStatus').classList.add('active');
+    }
+
+    function closeStatusModal() {
+      document.getElementById('modalStatus').classList.remove('active');
+      closeQuestion();
+    }
+  </script>
+
+</body>
+</html>
