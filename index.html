@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bài 8: Thấu Kính - Trò Chơi Lật Hình</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Titan+One&family=Nunito:wght@800;900&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #1a1c23;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: 'Nunito', sans-serif;
+    }
+
+    .slide-container {
+      width: 900px;
+      height: 520px;
+      background-color: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide {
+      width: 100%;
+      height: 100%;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .slide.active {
+      display: flex;
+    }
+
+    .title-main {
+      font-family: 'Titan One', cursive, sans-serif;
+      font-size: 52px;
+      color: #000000;
+      letter-spacing: 2px;
+      margin-bottom: 25px;
+      text-transform: uppercase;
+    }
+
+    .title-sub {
+      font-family: 'Titan One', cursive, sans-serif;
+      font-size: 42px;
+      color: #000000;
+      letter-spacing: 1.5px;
+      line-height: 1.2;
+      margin-bottom: 45px;
+      text-transform: uppercase;
+    }
+
+    .play-btn {
+      width: 170px;
+      height: 100px;
+      background-color: #6bbd00;
+      border-radius: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 0 15px rgba(107, 189, 0, 0.4);
+    }
+
+    .play-icon {
+      width: 0;
+      height: 0;
+      border-top: 22px solid transparent;
+      border-bottom: 22px solid transparent;
+      border-left: 38px solid #ffffff;
+      margin-left: 8px;
+    }
+
+    .play-btn:hover {
+      transform: scale(1.15);
+      background-color: #79d600;
+      box-shadow: 0 0 25px #6bbd00, 0 0 50px #9aff00;
+    }
+
+    .grid-title {
+      font-size: 28px;
+      font-weight: 900;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 15px;
+      width: 100%;
+      max-width: 650px;
+    }
+
+    .card {
+      height: 90px;
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      color: white;
+      font-size: 32px;
+      font-weight: 900;
+      border-radius: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px) scale(1.05);
+      background: linear-gradient(135deg, #60a5fa, #2563eb);
+    }
+
+    .back-btn {
+      margin-top: 25px;
+      padding: 8px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      background-color: #e5e7eb;
+      color: #374151;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .back-btn:hover {
+      background-color: #d1d5db;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="slide-container">
+    <div class="slide active" id="slide1">
+      <h1 class="title-main">BÀI 8 : THẤU KÍNH</h1>
+      <h2 class="title-sub">TRÒ CHƠI LẬT HÌNH</h2>
+      <div class="play-btn" onclick="goToSlide(2)">
+        <div class="play-icon"></div>
+      </div>
+    </div>
+
+    <div class="slide" id="slide2">
+      <h3 class="grid-title">CHỌN THẺ CÂU HỎI</h3>
+      <div class="card-grid">
+        <div class="card">1</div>
+        <div class="card">2</div>
+        <div class="card">3</div>
+        <div class="card">4</div>
+        <div class="card">5</div>
+        <div class="card">6</div>
+        <div class="card">7</div>
+        <div class="card">8</div>
+        <div class="card">9</div>
+        <div class="card">10</div>
+      </div>
+      <button class="back-btn" onclick="goToSlide(1)">❮ Quay lại</button>
+    </div>
+  </div>
+
+  <script>
+    function goToSlide(slideNumber) {
+      document.querySelectorAll('.slide').forEach(slide => {
+        slide.classList.remove('active');
+      });
+      document.getElementById('slide' + slideNumber).classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
