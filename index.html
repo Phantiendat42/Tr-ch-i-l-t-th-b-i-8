@@ -279,7 +279,7 @@
       cursor: pointer;
     }
 
-    /* Popup thông báo kiểu ngân hàng (Payment Dialog) */
+    /* POPUP BẢNG THÔNG BÁO GIỐNG MẪU (BANNER NỔI NỔI TRỰC QUAN) */
     .modal-status {
       display: none;
       position: absolute;
@@ -287,91 +287,55 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(4px);
+      background-color: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(3px);
       z-index: 200;
       justify-content: center;
       align-items: center;
+      cursor: pointer;
     }
 
     .modal-status.active {
       display: flex;
     }
 
-    .status-card {
-      background: #ffffff;
-      width: 360px;
-      border-radius: 20px;
-      padding: 30px 20px;
-      text-align: center;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-      animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    @keyframes popIn {
-      0% { transform: scale(0.6); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-
-    .status-icon-box {
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
+    .status-banner {
+      width: 620px;
+      height: 190px;
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 0 auto 15px auto;
-    }
-
-    .status-icon-box.success {
-      background-color: #e6f4ea;
-      color: #13ce66;
-    }
-
-    .status-icon-box.error {
-      background-color: #fde8e8;
-      color: #ff4949;
-    }
-
-    .status-icon-box svg {
-      width: 40px;
-      height: 40px;
-      fill: currentColor;
-    }
-
-    .status-title {
-      font-size: 22px;
+      gap: 15px;
+      border-radius: 12px;
+      color: #ffffff;
+      font-size: 52px;
       font-weight: 900;
-      margin-bottom: 8px;
+      letter-spacing: 1px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+      animation: bannerPop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      text-shadow: 2px 3px 5px rgba(0,0,0,0.3);
+      user-select: none;
     }
 
-    .status-title.success { color: #10b981; }
-    .status-title.error { color: #ef4444; }
-
-    .status-msg {
-      font-size: 15px;
-      color: #6b7280;
-      margin-bottom: 25px;
-      font-weight: 700;
+    .status-banner.success {
+      background: linear-gradient(135deg, #70c700 0%, #569e00 100%);
     }
 
-    .status-btn {
-      width: 100%;
-      padding: 12px;
-      border: none;
-      border-radius: 10px;
-      font-size: 16px;
-      font-weight: 800;
-      color: white;
-      cursor: pointer;
-      transition: opacity 0.2s;
+    .status-banner.error {
+      background: linear-gradient(135deg, #ff4d4d 0%, #d92626 100%);
     }
 
-    .status-btn.success { background-color: #10b981; }
-    .status-btn.error { background-color: #ef4444; }
+    .status-banner svg {
+      width: 58px;
+      height: 58px;
+      fill: #ffffff;
+      filter: drop-shadow(2px 3px 4px rgba(0,0,0,0.3));
+    }
 
-    .status-btn:hover {
-      opacity: 0.9;
+    @keyframes bannerPop {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
     }
   </style>
 </head>
@@ -460,15 +424,11 @@
       <button class="close-q-btn" onclick="closeQuestion()">Đóng & Quay lại lưới thẻ</button>
     </div>
 
-    <!-- Modal Thông báo Kiểu Thanh Toán Ngân Hàng -->
-    <div class="modal-status" id="modalStatus">
-      <div class="status-card">
-        <div class="status-icon-box" id="statusIconBox">
-          <!-- Icon sẽ được JS thêm vào -->
-        </div>
-        <div class="status-title" id="statusTitle">Thông báo</div>
-        <div class="status-msg" id="statusMsg">Nội dung thông báo</div>
-        <button class="status-btn" id="statusBtn" onclick="closeStatusModal()">XÁC NHẬN</button>
+    <!-- Banner Thông báo Đúng / Sai (Bấm vào đâu trên màn hình cũng tắt) -->
+    <div class="modal-status" id="modalStatus" onclick="closeStatusModal()">
+      <div class="status-banner" id="statusBanner">
+        <span id="statusIcon"></span>
+        <span id="statusText">Trả lời đúng</span>
       </div>
     </div>
   </div>
@@ -583,13 +543,11 @@
     }
 
     function openQuestion(cardNum, cardEl) {
-      // Lật thẻ nếu chưa lật (nhưng vẫn cho phép bấm lại nhiều lần)
       if (!cardEl.classList.contains('flipped')) {
         cardEl.classList.add('flipped');
       }
       
       const qData = questionsData[cardNum];
-
       document.getElementById('qText').innerText = qData.title;
       const optionsBox = document.getElementById('optionsBox');
       optionsBox.innerHTML = '';
@@ -610,25 +568,18 @@
     }
 
     function checkAnswer(isCorrect) {
-      const iconBox = document.getElementById('statusIconBox');
-      const title = document.getElementById('statusTitle');
-      const msg = document.getElementById('statusMsg');
-      const btn = document.getElementById('statusBtn');
+      const banner = document.getElementById('statusBanner');
+      const text = document.getElementById('statusText');
+      const icon = document.getElementById('statusIcon');
 
       if (isCorrect) {
-        iconBox.className = 'status-icon-box success';
-        iconBox.innerHTML = `<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>`;
-        title.className = 'status-title success';
-        title.innerText = 'ĐÃ TRẢ LỜI ĐÚNG';
-        msg.innerText = 'Chúc mừng bạn! Bạn đã chọn đáp án chính xác.';
-        btn.className = 'status-btn success';
+        banner.className = 'status-banner success';
+        text.innerText = 'Trả lời đúng';
+        icon.innerHTML = `<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>`;
       } else {
-        iconBox.className = 'status-icon-box error';
-        iconBox.innerHTML = `<svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>`;
-        title.className = 'status-title error';
-        title.innerText = 'ĐÃ TRẢ LỜI SAI';
-        msg.innerText = 'Rất tiếc! Đáp án bạn chọn chưa chính xác.';
-        btn.className = 'status-btn error';
+        banner.className = 'status-banner error';
+        text.innerText = 'Trả lời sai';
+        icon.innerHTML = `<svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 13.41 12z"/></svg>`;
       }
 
       document.getElementById('modalStatus').classList.add('active');
