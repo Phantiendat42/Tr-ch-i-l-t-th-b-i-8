@@ -90,6 +90,7 @@
       margin-left: 8px;
     }
 
+    /* Hiệu ứng Phóng to nút Play ở Sảnh */
     .play-btn:hover {
       transform: scale(1.15);
       background-color: #79d600;
@@ -113,15 +114,18 @@
       perspective: 1000px;
     }
 
-    /* ĐỊNH DẠNG THẺ & SỬA LỖI HOVER */
+    /* ĐỊNH DẠNG THẺ THUẦN TÚY & NÚT HOVER PHÓNG TO GIỐNG SẢNH */
     .card-item {
       height: 170px;
       cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+      position: relative;
     }
 
+    /* Hover cho CẢ Thẻ Chưa Lật & Thẻ Đã Lật -> Đều Phóng To */
     .card-item:hover {
-      transform: scale(1.04);
+      transform: scale(1.1);
+      z-index: 10;
     }
 
     .card-inner {
@@ -134,7 +138,7 @@
       border-radius: 14px;
     }
 
-    /* Chỉ xoay khi có class flipped (khi click) */
+    /* Chỉ xoay mặt thẻ khi có class flipped (khi click trả lời) */
     .card-item.flipped .card-inner {
       transform: rotateY(180deg);
     }
@@ -143,6 +147,8 @@
       position: absolute;
       width: 100%;
       height: 100%;
+      top: 0;
+      left: 0;
       -webkit-backface-visibility: hidden;
       backface-visibility: hidden;
       border-radius: 14px;
@@ -152,12 +158,11 @@
       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
     }
 
+    /* Mặt trước của thẻ (Số 1, 2, 3...) */
     .card-front {
       font-size: 38px;
       font-weight: 900;
       border: 3px solid rgba(255, 255, 255, 0.4);
-      outline: 2px solid transparent;
-      outline-offset: -8px;
     }
 
     .card-front::after {
@@ -186,6 +191,7 @@
     .card-dark { background-color: #343a40; color: #ffffff; }
     .card-brown { background-color: #6f4e37; color: #ffffff; }
 
+    /* Mặt sau của thẻ (Chữ "ĐÃ LẬT") */
     .card-back {
       background-color: #10b981;
       color: white;
@@ -207,13 +213,14 @@
       border-radius: 8px;
       cursor: pointer;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: background-color 0.2s;
     }
 
     .back-btn:hover {
       background-color: #f3f4f6;
     }
 
-    /* Popup câu hỏi */
+    /* Modal Hộp thoại Câu Hỏi */
     .modal-question {
       display: none;
       position: absolute;
@@ -277,7 +284,7 @@
       cursor: pointer;
     }
 
-    /* POPUP THÔNG BÁO BANNER */
+    /* POPUP THÔNG BÁO BANNER (Đúng / Sai / Đã trả lời rồi) */
     .modal-status {
       display: none;
       position: absolute;
@@ -298,15 +305,15 @@
     }
 
     .status-banner {
-      width: 620px;
-      height: 190px;
+      width: 650px;
+      height: 180px;
       display: flex;
       justify-content: center;
       align-items: center;
       gap: 15px;
-      border-radius: 12px;
+      border-radius: 16px;
       color: #ffffff;
-      font-size: 52px;
+      font-size: 46px;
       font-weight: 900;
       letter-spacing: 1px;
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
@@ -322,6 +329,11 @@
 
     .status-banner.error {
       background: linear-gradient(135deg, #ff4d4d 0%, #d92626 100%);
+    }
+
+    .status-banner.info {
+      background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+      font-size: 38px;
     }
 
     .status-banner svg {
@@ -340,6 +352,7 @@
 <body>
 
   <div class="slide-container">
+    <!-- Slide 1: Sảnh chính -->
     <div class="slide active" id="slide1">
       <h1 class="title-main">BÀI 8 : THẤU KÍNH</h1>
       <h2 class="title-sub">TRÒ CHƠI LẬT HÌNH</h2>
@@ -348,64 +361,65 @@
       </div>
     </div>
 
+    <!-- Slide 2: Lưới thẻ câu hỏi -->
     <div class="slide" id="slide2">
       <h3 class="grid-title">CHỌN THẺ CÂU HỎI</h3>
       <div class="card-grid">
-        <div class="card-item" onclick="openQuestion(1, this)">
+        <div class="card-item" onclick="handleCardClick(1, this)">
           <div class="card-inner">
             <div class="card-front card-red">1</div>
             <div class="card-back">ĐÃ LẬT</div>
           </div>
         </div>
-        <div class="card-item" onclick="openQuestion(2, this)">
+        <div class="card-item" onclick="handleCardClick(2, this)">
           <div class="card-inner">
             <div class="card-front card-blue">2</div>
             <div class="card-back">ĐÃ LẬT</div>
           </div>
         </div>
-        <div class="card-item" onclick="openQuestion(3, this)">
+        <div class="card-item" onclick="handleCardClick(3, this)">
           <div class="card-inner">
             <div class="card-front card-green">3</div>
             <div class="card-back">ĐÃ LẬT</div>
           </div>
         </div>
-        <div class="card-item" onclick="openQuestion(4, this)">
+        <div class="card-item" onclick="handleCardClick(4, this)">
           <div class="card-inner">
             <div class="card-front card-yellow">4</div>
             <div class="card-back">ĐÃ LẬT</div>
           </div>
         </div>
-        <div class="card-item" onclick="openQuestion(5, this)">
+        <div class="card-item" onclick="handleCardClick(5, this)">
           <div class="card-inner">
             <div class="card-front card-orange">5</div>
             <div class="card-back">ĐÃ LẬT</div>
           </div>
         </div>
-        <div class="card-item" onclick="openQuestion(6, this)">
+        <div class="card-item" onclick="handleCardClick(6, this)">
           <div class="card-inner">
             <div class="card-front card-purple">6</div>
             <div class="card-back">ĐÃ LẬT</div>
           </div>
         </div>
-        <div class="card-item" onclick="openQuestion(7, this)">
+        <div class="card-item" onclick="handleCardClick(7, this)">
           <div class="card-inner">
             <div class="card-front card-pink">7</div>
             <div class="card-back">ĐÃ LẬT</div>
           </div>
         </div>
-        <div class="card-item" onclick="openQuestion(8, this)">
+        <div class="card-item" onclick="handleCardClick(8, this)">
           <div class="card-inner">
             <div class="card-front card-white">8</div>
             <div class="card-back">ĐÃ LẬT</div>
           </div>
         </div>
-        <div class="card-item" onclick="openQuestion(9, this)">
+        <div class="card-item" onclick="handleCardClick(9, this)">
           <div class="card-inner">
             <div class="card-front card-dark">9</div>
             <div class="card-back">ĐÃ LẬT</div>
           </div>
         </div>
-        <div class="card-item" onclick="openQuestion(10, this)">
+        <div class="card-item" onclick="handleCardClick(10, this)">
           <div class="card-inner">
             <div class="card-front card-brown">10</div>
             <div class="card-back">ĐÃ LẬT</div>
@@ -415,14 +429,14 @@
       <button class="back-btn" onclick="goToSlide(1)">❮ Quay lại</button>
     </div>
 
-    <!-- Modal Câu hỏi -->
+    <!-- Modal Cửa Sổ Câu Hỏi -->
     <div class="modal-question" id="modalQ">
       <h3 class="q-title" id="qText">Câu hỏi...</h3>
       <div class="options-grid" id="optionsBox"></div>
       <button class="close-q-btn" onclick="closeQuestion()">Đóng & Quay lại lưới thẻ</button>
     </div>
 
-    <!-- Modal Thông báo Đúng / Sai -->
+    <!-- Modal Banner Thông Báo (Đúng / Sai / Đã trả lời) -->
     <div class="modal-status" id="modalStatus" onclick="closeStatusModal()">
       <div class="status-banner" id="statusBanner">
         <span id="statusIcon"></span>
@@ -535,17 +549,23 @@
       }
     };
 
+    let currentCardElement = null;
+
     function goToSlide(slideNumber) {
       document.querySelectorAll('.slide').forEach(slide => slide.classList.remove('active'));
       document.getElementById('slide' + slideNumber).classList.add('active');
     }
 
-    function openQuestion(cardNum, cardEl) {
-      // Chỉ lật thẻ khi được click vào
-      if (!cardEl.classList.contains('flipped')) {
-        cardEl.classList.add('flipped');
+    // Xử lý Sự kiện Click Thẻ
+    function handleCardClick(cardNum, cardEl) {
+      // Nếu thẻ ĐÃ LẬT rồi mà người dùng click lại -> Hiện thông báo "Bạn đã trả lời rồi!"
+      if (cardEl.classList.contains('flipped')) {
+        showAlreadyAnsweredModal();
+        return;
       }
       
+      // Nếu thẻ chưa lật -> Mở modal câu hỏi
+      currentCardElement = cardEl;
       const qData = questionsData[cardNum];
       document.getElementById('qText').innerText = qData.title;
       const optionsBox = document.getElementById('optionsBox');
@@ -566,7 +586,13 @@
       document.getElementById('modalQ').classList.remove('active');
     }
 
+    // Kiểm tra Đúng / Sai khi trả lời
     function checkAnswer(isCorrect) {
+      // Sau khi bấm trả lời thì chính thức lật thẻ
+      if (currentCardElement) {
+        currentCardElement.classList.add('flipped');
+      }
+
       const banner = document.getElementById('statusBanner');
       const text = document.getElementById('statusText');
       const icon = document.getElementById('statusIcon');
@@ -580,6 +606,19 @@
         text.innerText = 'Trả lời sai';
         icon.innerHTML = `<svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>`;
       }
+
+      document.getElementById('modalStatus').classList.add('active');
+    }
+
+    // Bật Banner Thông báo "Bạn đã trả lời rồi!"
+    function showAlreadyAnsweredModal() {
+      const banner = document.getElementById('statusBanner');
+      const text = document.getElementById('statusText');
+      const icon = document.getElementById('statusIcon');
+
+      banner.className = 'status-banner info';
+      text.innerText = 'Bạn đã trả lời rồi!';
+      icon.innerHTML = `<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>`;
 
       document.getElementById('modalStatus').classList.add('active');
     }
