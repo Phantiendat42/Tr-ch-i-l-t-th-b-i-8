@@ -50,91 +50,143 @@
       display: flex;
     }
 
-    /* ================= SẢNH CHÍNH (SLIDE 1) ================= */
+    /* ================= SẢNH CHÍNH MỚI (SLIDE 1) ================= */
     #slide1 {
-      background-color: #ffffff;
+      /* Nền sảnh màu ấm kết hợp họa tiết hạt/sọc tinh tế */
+      background: radial-gradient(circle at center, #fffbeb 0%, #fef3c7 60%, #fde68a 100%);
+      position: relative;
+    }
+
+    /* Họa tiết lưới chìm trên nền sảnh */
+    #slide1::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: 
+        radial-gradient(#f59e0b 0.75px, transparent 0.75px),
+        radial-gradient(#f59e0b 0.75px, #fef3c7 0.75px);
+      background-size: 30px 30px;
+      background-position: 0 0, 15px 15px;
+      opacity: 0.15;
+      pointer-events: none;
+    }
+
+    /* Bảng tiêu đề chính */
+    .lobby-header {
+      z-index: 5;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 25px 45px;
+      border-radius: 24px;
+      border: 3px solid #f59e0b;
+      box-shadow: 0 10px 25px rgba(217, 119, 6, 0.15);
+      backdrop-filter: blur(5px);
+      margin-bottom: 35px;
     }
 
     .title-main-lobby {
-      font-family: 'Nunito', sans-serif;
+      font-size: 46px;
       font-weight: 900;
-      font-size: 54px;
-      color: #000000;
+      color: #7c2d12;
       letter-spacing: 1px;
-      margin-bottom: 10px;
+      margin-bottom: 5px;
       text-transform: uppercase;
+      text-shadow: 2px 2px 0px #fde68a;
     }
 
     .title-sub-lobby {
-      font-family: 'Nunito', sans-serif;
+      font-size: 42px;
       font-weight: 900;
-      font-size: 48px;
-      color: #000000;
+      color: #d97706;
       line-height: 1.2;
-      margin-bottom: 45px;
       text-transform: uppercase;
+      text-shadow: 1px 1px 0px #ffffff;
     }
 
     /* Nút Play ở sảnh */
     .play-btn {
-      width: 160px;
-      height: 90px;
-      background-color: #70c700;
-      border-radius: 28px;
-      border: none;
+      width: 170px;
+      height: 95px;
+      background: linear-gradient(135deg, #84cc16 0%, #65a30d 100%);
+      border-radius: 32px;
+      border: 4px solid #ffffff;
       display: flex;
       justify-content: center;
       align-items: center;
       cursor: pointer;
-      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s, box-shadow 0.2s;
-      box-shadow: 0 8px 18px rgba(112, 199, 0, 0.4);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 10px 25px rgba(101, 163, 13, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.4);
       outline: none;
       z-index: 5;
+      animation: btnPulse 2s infinite;
     }
 
     .play-icon {
       width: 0;
       height: 0;
-      border-top: 20px solid transparent;
-      border-bottom: 20px solid transparent;
-      border-left: 34px solid #ffffff;
-      margin-left: 6px;
+      border-top: 22px solid transparent;
+      border-bottom: 22px solid transparent;
+      border-left: 36px solid #ffffff;
+      margin-left: 8px;
+      filter: drop-shadow(1px 2px 2px rgba(0,0,0,0.2));
     }
 
     .play-btn:hover {
-      transform: scale(1.15);
-      background-color: #7de000;
-      box-shadow: 0 10px 25px rgba(112, 199, 0, 0.6);
+      transform: scale(1.15) translateY(-3px);
+      background: linear-gradient(135deg, #a3e635 0%, #65a30d 100%);
+      box-shadow: 0 15px 30px rgba(101, 163, 13, 0.6);
     }
 
-    /* Trang trí Sảnh: Kính lúp góc dưới trái */
+    @keyframes btnPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    /* Đồ họa trang trí sảnh */
+    .deco-item {
+      position: absolute;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* Thấu kính trái */
+    .deco-lens-left {
+      left: 35px;
+      top: 120px;
+      width: 160px;
+      height: 220px;
+      opacity: 0.9;
+    }
+
+    /* Kính phóng đại góc trái dưới */
     .deco-magnifier {
-      position: absolute;
       left: 45px;
-      bottom: 40px;
-      width: 140px;
-      height: 140px;
-      pointer-events: none;
-    }
-
-    /* Trang trí Sảnh: 2 Thẻ bài góc dưới phải */
-    .deco-cards {
-      position: absolute;
-      right: 50px;
       bottom: 35px;
-      width: 170px;
-      height: 160px;
-      pointer-events: none;
+      width: 150px;
+      height: 150px;
     }
 
-    /* Trang trí thêm: Tia lấp lánh nhẹ góc trên */
-    .deco-sparkle {
-      position: absolute;
-      top: 35px;
-      right: 60px;
-      opacity: 0.8;
-      pointer-events: none;
+    /* Bộ thẻ góc phải dưới */
+    .deco-cards {
+      right: 45px;
+      bottom: 35px;
+      width: 180px;
+      height: 170px;
     }
+
+    /* Thấu kính phải */
+    .deco-lens-right {
+      right: 40px;
+      top: 100px;
+      width: 150px;
+      height: 200px;
+      opacity: 0.9;
+    }
+
+    /* Ngôi sao trang trí */
+    .deco-star1 { top: 40px; left: 80px; width: 35px; }
+    .deco-star2 { top: 50px; right: 90px; width: 45px; }
+    .deco-star3 { bottom: 180px; left: 240px; width: 25px; }
+    .deco-star4 { bottom: 160px; right: 230px; width: 30px; }
 
     /* ================= LƯỚI THẺ (SLIDE 2) ================= */
     #slide2 {
@@ -167,7 +219,6 @@
       position: relative;
     }
 
-    /* Di chuột vào thẻ chưa lật hoặc đã lật -> CHỈ Phóng to */
     .card-item:hover {
       transform: scale(1.1);
       z-index: 10;
@@ -183,7 +234,6 @@
       border-radius: 14px;
     }
 
-    /* Chỉ xoay khi đã lật */
     .card-item.flipped .card-inner {
       transform: rotateY(180deg);
     }
@@ -319,7 +369,7 @@
       cursor: pointer;
     }
 
-    /* Banner Thông Báo (Đúng / Sai / Bạn đã trả lời rồi) */
+    /* Modal Banner Thông Báo (Đúng / Sai / Bạn đã trả lời rồi) */
     .modal-status {
       display: none;
       position: absolute;
@@ -341,7 +391,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 15px;
+      gap: 20px;
       border-radius: 16px;
       color: #ffffff;
       font-size: 46px;
@@ -360,9 +410,17 @@
       font-size: 38px;
     }
 
-    .status-banner svg {
-      width: 58px; height: 58px;
-      fill: #ffffff;
+    .status-icon-box {
+      width: 58px;
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .status-icon-box svg {
+      width: 100%;
+      height: 100%;
       filter: drop-shadow(2px 3px 4px rgba(0,0,0,0.3));
     }
 
@@ -377,33 +435,50 @@
   <div class="slide-container">
     
     <div class="slide active" id="slide1">
-      <h1 class="title-main-lobby">BÀI 8 : THẤU KÍNH</h1>
-      <h2 class="title-sub-lobby">TRÒ CHƠI LẬT<br>HÌNH</h2>
+      
+      <div class="lobby-header">
+        <h1 class="title-main-lobby">BÀI 8 : THẤU KÍNH</h1>
+        <h2 class="title-sub-lobby">TRÒ CHƠI LẬT HÌNH</h2>
+      </div>
       
       <button class="play-btn" id="btnStartGame" aria-label="Chơi ngay">
         <div class="play-icon"></div>
       </button>
 
-      <svg class="deco-magnifier" viewBox="0 0 100 100">
-        <circle cx="42" cy="42" r="30" fill="none" stroke="#000000" stroke-width="8"/>
-        <line x1="64" y1="64" x2="90" y2="90" stroke="#000000" stroke-width="12" stroke-linecap="round"/>
+      <svg class="deco-item deco-lens-left" viewBox="0 0 100 150">
+        <path d="M0 40 L50 75 L100 40" stroke="#f59e0b" stroke-width="3" stroke-dasharray="4 4" fill="none"/>
+        <path d="M0 110 L50 75 L100 110" stroke="#f59e0b" stroke-width="3" stroke-dasharray="4 4" fill="none"/>
+        <path d="M50 10 Q35 75 50 140 Q65 75 50 10 Z" fill="rgba(59, 130, 246, 0.35)" stroke="#2563eb" stroke-width="4"/>
       </svg>
 
-      <svg class="deco-cards" viewBox="0 0 120 120">
-        <g transform="rotate(-25 50 60)">
-          <rect x="20" y="20" width="55" height="75" rx="8" fill="#ffca28" stroke="#000000" stroke-width="4"/>
-          <rect x="25" y="25" width="45" height="65" rx="5" fill="none" stroke="#e65100" stroke-width="2"/>
+      <svg class="deco-item deco-magnifier" viewBox="0 0 100 100">
+        <circle cx="42" cy="42" r="30" fill="rgba(255,255,255,0.8)" stroke="#d97706" stroke-width="7"/>
+        <line x1="64" y1="64" x2="90" y2="90" stroke="#b45309" stroke-width="12" stroke-linecap="round"/>
+        <path d="M25 35 Q35 20 50 25" stroke="#93c5fd" stroke-width="4" stroke-linecap="round" fill="none"/>
+      </svg>
+
+      <svg class="deco-item deco-lens-right" viewBox="0 0 100 150">
+        <line x1="10" y1="75" x2="90" y2="75" stroke="#d97706" stroke-width="3" stroke-dasharray="5 5"/>
+        <circle cx="50" cy="75" r="5" fill="#d97706"/>
+        <path d="M35 15 L65 15 Q52 75 65 135 L35 135 Q48 75 35 15 Z" fill="rgba(168, 85, 247, 0.3)" stroke="#7e22ce" stroke-width="4"/>
+      </svg>
+
+      <svg class="deco-item deco-cards" viewBox="0 0 120 120">
+        <g transform="rotate(-20 50 60)">
+          <rect x="20" y="20" width="55" height="75" rx="8" fill="#fbbf24" stroke="#b45309" stroke-width="4"/>
+          <rect x="25" y="25" width="45" height="65" rx="5" fill="none" stroke="#ffffff" stroke-width="2"/>
         </g>
-        <g transform="rotate(12 65 55)">
-          <rect x="40" y="15" width="55" height="75" rx="8" fill="#ff4081" stroke="#000000" stroke-width="4"/>
+        <g transform="rotate(15 65 55)">
+          <rect x="40" y="15" width="55" height="75" rx="8" fill="#ec4899" stroke="#9d174d" stroke-width="4"/>
           <rect x="45" y="20" width="45" height="65" rx="5" fill="none" stroke="#ffffff" stroke-width="2"/>
         </g>
-        <path d="M78 5 L78 12 M90 8 L85 14 M66 8 L71 14" stroke="#000000" stroke-width="3" stroke-linecap="round"/>
       </svg>
 
-      <svg class="deco-sparkle" width="40" height="40" viewBox="0 0 40 40">
-        <path d="M20 0 L23 17 L40 20 L23 23 L20 40 L17 23 L0 20 L17 17 Z" fill="#facc15"/>
-      </svg>
+      <svg class="deco-item deco-star1" viewBox="0 0 40 40"><path d="M20 0 L23 17 L40 20 L23 23 L20 40 L17 23 L0 20 L17 17 Z" fill="#f59e0b"/></svg>
+      <svg class="deco-item deco-star2" viewBox="0 0 40 40"><path d="M20 0 L23 17 L40 20 L23 23 L20 40 L17 23 L0 20 L17 17 Z" fill="#fbbf24"/></svg>
+      <svg class="deco-item deco-star3" viewBox="0 0 40 40"><path d="M20 0 L23 17 L40 20 L23 23 L20 40 L17 23 L0 20 L17 17 Z" fill="#f59e0b"/></svg>
+      <svg class="deco-item deco-star4" viewBox="0 0 40 40"><path d="M20 0 L23 17 L40 20 L23 23 L20 40 L17 23 L0 20 L17 17 Z" fill="#3b82f6"/></svg>
+
     </div>
 
     <div class="slide" id="slide2">
@@ -481,7 +556,7 @@
 
     <div class="modal-status" id="modalStatus" onclick="closeStatusModal()">
       <div class="status-banner" id="statusBanner">
-        <span id="statusIcon"></span>
+        <span class="status-icon-box" id="statusIcon"></span>
         <span id="statusText">Trả lời đúng</span>
       </div>
     </div>
@@ -594,7 +669,6 @@
 
     let currentCardElement = null;
 
-    // Chuyển slide an toàn
     function goToSlide(slideNumber) {
       document.querySelectorAll('.slide').forEach(slide => slide.classList.remove('active'));
       const targetSlide = document.getElementById('slide' + slideNumber);
@@ -603,7 +677,6 @@
       }
     }
 
-    // Gán sự kiện cho nút Chơi ngay sau khi trang load xong
     document.addEventListener('DOMContentLoaded', () => {
       const btnPlay = document.getElementById('btnStartGame');
       if (btnPlay) {
@@ -613,7 +686,6 @@
       }
     });
 
-    // Click chọn thẻ
     function handleCardClick(cardNum, cardEl) {
       if (cardEl.classList.contains('flipped')) {
         showAlreadyAnsweredModal();
@@ -653,11 +725,11 @@
       if (isCorrect) {
         banner.className = 'status-banner success';
         text.innerText = 'Trả lời đúng';
-        icon.innerHTML = `<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>`;
+        icon.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
       } else {
         banner.className = 'status-banner error';
         text.innerText = 'Trả lời sai';
-        icon.innerHTML = `<svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 13.41 12z"/></svg>`;
+        icon.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
       }
 
       document.getElementById('modalStatus').classList.add('active');
@@ -670,7 +742,7 @@
 
       banner.className = 'status-banner info';
       text.innerText = 'Bạn đã trả lời rồi!';
-      icon.innerHTML = `<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>`;
+      icon.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>`;
 
       document.getElementById('modalStatus').classList.add('active');
     }
