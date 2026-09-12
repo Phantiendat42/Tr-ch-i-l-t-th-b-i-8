@@ -113,9 +113,15 @@
       perspective: 1000px;
     }
 
+    /* ĐỊNH DẠNG THẺ & SỬA LỖI HOVER */
     .card-item {
       height: 170px;
       cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card-item:hover {
+      transform: scale(1.04);
     }
 
     .card-inner {
@@ -123,11 +129,12 @@
       width: 100%;
       height: 100%;
       text-align: center;
-      transition: transform 0.6s;
+      transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
       transform-style: preserve-3d;
-      border-radius: 12px;
+      border-radius: 14px;
     }
 
+    /* Chỉ xoay khi có class flipped (khi click) */
     .card-item.flipped .card-inner {
       transform: rotateY(180deg);
     }
@@ -165,7 +172,7 @@
       pointer-events: none;
     }
 
-    /* Màu sắc thẻ */
+    /* Màu sắc các thẻ */
     .card-red { background-color: #c93b2b; color: #ffffff; }
     .card-blue { background-color: #2b7bb9; color: #ffffff; }
     .card-green { background-color: #278547; color: #ffffff; }
@@ -178,15 +185,6 @@
     .card-white::after { border-color: rgba(0, 0, 0, 0.15) !important; }
     .card-dark { background-color: #343a40; color: #ffffff; }
     .card-brown { background-color: #6f4e37; color: #ffffff; }
-
-    .card-item:hover .card-front, .card-item:hover .card-back {
-      transform: scale(1.03);
-      box-shadow: 0 10px 18px rgba(0, 0, 0, 0.35);
-    }
-    
-    .card-item.flipped:hover .card-inner {
-      transform: rotateY(180deg) scale(1.03);
-    }
 
     .card-back {
       background-color: #10b981;
@@ -279,7 +277,7 @@
       cursor: pointer;
     }
 
-    /* POPUP BẢNG THÔNG BÁO GIỐNG MẪU (BANNER NỔI NỔI TRỰC QUAN) */
+    /* POPUP THÔNG BÁO BANNER */
     .modal-status {
       display: none;
       position: absolute;
@@ -424,7 +422,7 @@
       <button class="close-q-btn" onclick="closeQuestion()">Đóng & Quay lại lưới thẻ</button>
     </div>
 
-    <!-- Banner Thông báo Đúng / Sai (Bấm vào đâu trên màn hình cũng tắt) -->
+    <!-- Modal Thông báo Đúng / Sai -->
     <div class="modal-status" id="modalStatus" onclick="closeStatusModal()">
       <div class="status-banner" id="statusBanner">
         <span id="statusIcon"></span>
@@ -543,6 +541,7 @@
     }
 
     function openQuestion(cardNum, cardEl) {
+      // Chỉ lật thẻ khi được click vào
       if (!cardEl.classList.contains('flipped')) {
         cardEl.classList.add('flipped');
       }
@@ -579,7 +578,7 @@
       } else {
         banner.className = 'status-banner error';
         text.innerText = 'Trả lời sai';
-        icon.innerHTML = `<svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 13.41 12z"/></svg>`;
+        icon.innerHTML = `<svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>`;
       }
 
       document.getElementById('modalStatus').classList.add('active');
